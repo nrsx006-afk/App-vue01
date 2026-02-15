@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2026 at 12:33 PM
+-- Generation Time: Feb 15, 2026 at 12:09 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -45,7 +45,24 @@ INSERT INTO `customers` (`customer_id`, `firstName`, `lastName`, `phone`, `usern
 (00000002, 'วิภา', 'สุขสันต์', '0898765432', 'wipa', 'wipa2025'),
 (00000003, 'John', 'Doe', '0991122334', 'johnd', 'securepwd'),
 (00000004, 'มีนา', 'เมษา', '11111111111', 'mena01', '$2y$10$FWfd68r.JhsnX'),
-(00000005, 'มานี', 'ง่วง', '222222222', 'mane', '$2y$10$8EivSAjJw3zWKCDFXIf.suDbDUXpF1wqzxs2LygOFpNJGBi9SfvRS');
+(00000005, 'มานี', 'ง่วง', '222222222', 'mane', '$2y$10$8EivSAjJw3zWKCDFXIf.suDbDUXpF1wqzxs2LygOFpNJGBi9SfvRS'),
+(00000006, 'มานะ', 'เด็กดี', '038756921', 'mana', '1234'),
+(00000007, 'มานี', 'ใจดี', '038756901', 'manee', '1234');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customers_v2`
+--
+
+CREATE TABLE `customers_v2` (
+  `customer_id` int(11) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -59,6 +76,7 @@ CREATE TABLE `employees` (
   `department` varchar(50) NOT NULL,
   `salary` decimal(10,2) NOT NULL,
   `active` tinyint(1) DEFAULT 1,
+  `image` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -66,12 +84,12 @@ CREATE TABLE `employees` (
 -- Dumping data for table `employees`
 --
 
-INSERT INTO `employees` (`emp_id`, `full_name`, `department`, `salary`, `active`, `created_at`) VALUES
-(0000000000, 'me na', 'IT', '7.00', 1, '2026-01-25 09:46:20'),
-(0000000001, 'สมชาย ใจดี', 'IT', '35000.00', 1, '2026-01-18 10:27:14'),
-(0000000002, 'สมหญิง ดีงาม', 'บัญชี', '28000.00', 1, '2026-01-18 10:27:14'),
-(0000000003, 'อนันต์ สุขใจ', 'การตลาด', '25000.00', 0, '2026-01-18 10:27:14'),
-(0000000004, 'สุดา พรมดี', 'ทรัพยากรบุคคล', '32000.00', 1, '2026-01-18 10:27:14');
+INSERT INTO `employees` (`emp_id`, `full_name`, `department`, `salary`, `active`, `image`, `created_at`) VALUES
+(0000000000, 'me na', 'IT', '7.00', 1, '', '2026-01-25 09:46:20'),
+(0000000001, 'สมชาย ใจดี', 'IT', '35000.00', 1, '', '2026-01-18 10:27:14'),
+(0000000002, 'สมหญิง ดีงาม', 'บัญชี', '28000.00', 1, '', '2026-01-18 10:27:14'),
+(0000000003, 'อนันต์ สุขใจ', 'การตลาด', '25000.00', 0, '', '2026-01-18 10:27:14'),
+(0000000004, 'สุดา พรมดี', 'ทรัพยากรบุคคล', '32000.00', 1, '', '2026-01-18 10:27:14');
 
 -- --------------------------------------------------------
 
@@ -94,9 +112,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `description`, `price`, `image`, `stock`, `created_at`) VALUES
-(00000000001, 'เสื้อยืดคอกลม', 'เสื้อยืดผ้าฝ้าย 100% สวมใส่สบาย', '199.00', 'P1.jpg', 50, '2026-01-25 10:45:01'),
-(00000000002, 'กางเกงยีนส์', 'กางเกงยีนส์ทรงกระบอก สีฟ้าอ่อน', '799.00', 'P2.jpg', 30, '2026-01-25 10:45:01'),
-(00000000003, 'รองเท้าผ้าใบ', 'รองเท้าผ้าใบสีขาว ใส่ได้ทุกโอกาส', '1299.00', 'P3.jpg', 20, '2026-01-25 10:45:01');
+(00000000002, 'กางเกงยีนส์', 'กางเกงยีนส์ทรงกระบอก สีฟ้าอ่อน', '799.00', '1771146292_P1.jpg.jpg', 30, '2026-01-25 10:45:01'),
+(00000000003, 'รองเท้าผ้าใบ', 'รองเท้าผ้าใบสีขาว ใส่ได้ทุกโอกาส', '1299.00', '1771145494_P1.jpg.jpg', 20, '2026-01-25 10:45:01');
 
 -- --------------------------------------------------------
 
@@ -128,6 +145,12 @@ ALTER TABLE `customers`
   ADD PRIMARY KEY (`customer_id`);
 
 --
+-- Indexes for table `customers_v2`
+--
+ALTER TABLE `customers_v2`
+  ADD PRIMARY KEY (`customer_id`);
+
+--
 -- Indexes for table `employees`
 --
 ALTER TABLE `employees`
@@ -153,7 +176,13 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `customer_id` int(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `customers_v2`
+--
+ALTER TABLE `customers_v2`
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
