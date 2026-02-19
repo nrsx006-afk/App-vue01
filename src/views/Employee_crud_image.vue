@@ -28,7 +28,7 @@
           <td>
             <img
               v-if="employee.image"
-              :src="'http://localhost/app-vue01/php_api/uploads/' + employee.image"
+              :src="'/api/uploads/' + employee.image"
               width="100"
             />
           </td>
@@ -87,7 +87,7 @@
   <div v-if="isEditMode && editForm.image">
     <p class="mt-2">รูปเดิม:</p>
     <img
-      :src="'http://localhost/app-vue01/php_api/uploads/' + editForm.image"
+      :src="'/api/uploads/' + editForm.image"
       width="100"
     />
   </div>
@@ -131,7 +131,7 @@ export default {
     // โหลดข้อมูลสินค้า
     const fetchEmployees = async () => {
       try {
-        const res = await fetch("http://localhost/app-vue01/php_api/api_employee.php");
+        const res = await fetch("/api/employees/crud");
         const data = await res.json();
         employees.value = data.success ? data.data : [];
       } catch (err) {
@@ -189,7 +189,7 @@ const openAddModal = () => {
       if (newImageFile.value) formData.append("image", newImageFile.value);
 
       try {
-        const res = await fetch("http://localhost/app-vue01/php_api/api_employee.php", {
+        const res = await fetch("/api/employees/crud", {
           method: "POST",
           body: formData
         });
@@ -215,7 +215,7 @@ const openAddModal = () => {
       formData.append("emp_id", id);
 
       try {
-        const res = await fetch("http://localhost/app-vue01/php_api/api_employee.php", {
+        const res = await fetch("/api/employees/crud", {
           method: "POST",
           body: formData
         });

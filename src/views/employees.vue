@@ -59,7 +59,7 @@ export default {
     // ฟังก์ชันดึงข้อมูลจาก API
     const fetchemployees = async () => {
       try {
-        const response = await fetch("http://localhost/App-vue01/php_api/show_employees.php");
+        const response = await fetch("/api/employees");
         if (!response.ok) {
           throw new Error("ไม่สามารถดึงข้อมูลได้");
         }

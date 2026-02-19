@@ -43,7 +43,7 @@ export default {
     // ฟังก์ชันดึงข้อมูลจาก API
     const fetchTypes = async () => {
       try {
-        const response = await fetch("http://localhost/App-vue01/php_api/show_type.php");
+        const response = await fetch("/api/types");
         if (!response.ok) {
           throw new Error("ไม่สามารถดึงข้อมูลได้");
         }

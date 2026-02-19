@@ -12,7 +12,7 @@
         <div class="card shadow-sm mb-4">
           <!-- แสดงรูปสินค้า โดย path รูปมาจาก server -->
           <img
-             :src="'http://localhost/app-vue01/php_api/image/' + data.image"
+             :src="'/api/images/' + data.image"
             width="70%"
             height="300"
             class="card-img-top"
@@ -46,7 +46,7 @@ export default {
     // ฟังก์ชันดึงข้อมูลจาก API
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost/app-vue01/php_api/show_product.php");
+        const response = await fetch("/api/products");
         if (!response.ok) {
           throw new Error("ไม่สามารถดึงข้อมูลได้");
         }
