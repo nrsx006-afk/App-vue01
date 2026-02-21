@@ -28,7 +28,7 @@
           <a class="nav-link" href="/contact">Contact</a>
         </li>
          <li class="nav-item">
-          <a class="nav-link" href="/student">Student</a>
+          <a class="nav-link" href="/type">Type</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="/employee" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -37,7 +37,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/employee">Employee</a></li>
             <li><a class="dropdown-item" href="/employee">Employee_curd</a></li>
-            <li><a class="dropdown-item" href="/employee_crud_image">Employee_curd_image</a></li>
+            <li><a class="dropdown-item" href="/employee_crud_image1">Employee_curd_image</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
