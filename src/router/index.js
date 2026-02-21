@@ -58,8 +58,7 @@ const routes = [
     path: '/product_crud',
     name: 'product_crud',
     component: () => import('../views/Product_crud.vue')
-  }
-  ,
+  },
   {
     path: '/employee_crud_image',
     name: 'employee_crud_image',
