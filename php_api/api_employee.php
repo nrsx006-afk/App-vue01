@@ -1,5 +1,6 @@
 <?php
 
+
 include 'condb.php';
 
 $action = $_POST['action'] ?? null;
@@ -12,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action) {
             $full_name = $_POST['full_name'];
             $department = $_POST['department'];
             $salary = $_POST['salary'];
-            $active= $_POST['active'];
+            $active = $_POST['active'];
 
             // อัพโหลดไฟล์รูป
             $filename = null;
@@ -26,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action) {
                 move_uploaded_file($_FILES['image']['tmp_name'], $targetFile);
             }
 
-            $sql = "INSERT INTO employees (full_name, department, salary, active, image)
-                    VALUES (:full_name, :department, : salary, : active, :image)";
+            $sql = "INSERT INTO employees (full_name,department, salary, active, image)
+                    VALUES (:full_name, :department, :salary, :active, :image)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':full_name', $full_name);
             $stmt->bindParam(':department', $department);
@@ -62,9 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action) {
 
             $sql = "UPDATE employees SET 
                         full_name = :full_name,
-                        department= :department,
+                        department = :department,
                         salary = :salary,
-                        active = :  active
+                        active = :active
                         $imageSQL
                     WHERE emp_id = :emp_id";
             $stmt = $conn->prepare($sql);
@@ -85,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action) {
 
         case 'delete':
             $emp_id = $_POST['emp_id'];
-            $stmt = $conn->prepare("DELETE FROM emp WHERE emp_id = :emp_id");
+            $stmt = $conn->prepare("DELETE FROM employees WHERE emp_id = :emp_id");
             $stmt->bindParam(':emp_id', $emp_id);
             if ($stmt->execute()) {
                 echo json_encode(["message" => "ลบสินค้าสำเร็จ"]);
