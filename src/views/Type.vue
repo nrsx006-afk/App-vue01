@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-4">
-    <h2 class="mb-3">รายการประเภทสินค้า</h2>
+    <h2 class="mb-3">เครื่องเขียน</h2>
     
     <!-- ตารางแสดงข้อมูลลูกค้า -->
     <table class="table table-bordered table-striped">
@@ -14,6 +14,7 @@
         <tr v-for="type in types" :key="type.type_id">
           <td>{{ type.type_id }}</td>
           <td>{{ type.type_name }}</td>
+
         </tr>
       </tbody>
     </table>
@@ -43,7 +44,7 @@ export default {
     // ฟังก์ชันดึงข้อมูลจาก API
     const fetchTypes = async () => {
       try {
-        const response = await fetch("/api/types");
+        const response = await fetch("http://localhost/App-vue01/php_api/show_type.php");
         if (!response.ok) {
           throw new Error("ไม่สามารถดึงข้อมูลได้");
         }

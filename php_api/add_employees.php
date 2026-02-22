@@ -8,7 +8,7 @@ if (
     !isset($data['full_name']) ||
     !isset($data['department']) ||
     !isset($data['salary']) ||
-    !isset($data['active']) 
+    !isset($data['active'])
 ) {
     echo json_encode([
         "success" => false,

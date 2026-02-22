@@ -1,42 +1,45 @@
-<template>
+<template lang="">
     <div class="container">
-    <h1>Contact to Narisa Muanjai</h1> 
-    <h3>Tel.091-775-3183</h3>  
-    <img alt="Vue logo" src="../assets/Fruit-PNG-Photo.png">  
+        
+
+        <h2>Contact to Narisa Muanjai</h2>
+        <h3>Tel 091-775-xxxx</h3>
+    
+  
 
 
 
-<div class="container text-center">
+<div class="container text-center mt-3">
   <div class="row">
     <div class="col-sm-6">
-      <img alt="Vue logo" src="../assets/SEA.jpg" height="400" width="550">  
+    <img style="width:300px ; height:300px" alt="Vue logo" src="../assets/Cat1.jpg">
     </div>
 
-    <div class="col-sm-6 bg-body-tertiary">
-<div class="mb-3 mt-4">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-</div>
-<div class="mb-3">
-  <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-</div>
-<div class="mb-3 text-center">
-    <button type="submit" class="btn btn-success">Submit</button> &ensp;
-    <button type="reset" class="btn btn-danger">Cancel</button>
 
-</div>
+
+
+    <div class="col-sm-6 bg-light">
+    <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    </div>
+
+    <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+
+    <div style="grid-template-columns: 1fr 1fr;" class="d-grid gap-3">
+        <input class="btn btn-primary" type="submit" value="Submit" > 
+        <input class="btn btn-danger" type="Cancel" value="Cancel">
+    </div>
+
+
+
     </div>
   </div>
 </div>
 
-<p></p>
-
-    </div>
-
+  </div>
 </template>
-
-
-
-
 

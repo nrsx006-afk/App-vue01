@@ -2,10 +2,6 @@
   <div class="container mt-4">
     <h2 class="mb-3">แสดงข้อมูลสินค้า</h2>
     
-
-     <div class="mb-3 text-end">
-      <a class="btn btn-primary" href="/product" role="button">Add+</a>
-    </div>
     <!-- ตารางแสดงข้อมูลลูกค้า -->
     <table class="table table-bordered table-striped">
       <thead class="table-dark">
@@ -21,7 +17,7 @@
       <tbody>
         <tr v-for="(data,index) in Alldata" :key="data.id">
           <td>{{ index + 1 }}</td>   <!--แสดงลำดับที่-->
-          <td>{{ data.id }}</td>
+          <td>{{ data.product_id }}</td>
           <td>{{ data.title }}</td>
           <td>{{ data.description }}</td>
           <td>{{ data.price }}</td>
@@ -34,6 +30,12 @@
         </tr>
       </tbody>
     </table>
+
+
+     <div class="mb-3 text-end">
+      <a class="btn btn-primary" href="#" role="button">Add+</a>
+    </div>
+
 
     <!-- Loading -->
     <div v-if="loading" class="text-center">

@@ -12,7 +12,7 @@
         <div class="card shadow-sm mb-4">
           <!-- แสดงรูปสินค้า โดย path รูปมาจาก server -->
           <img
-             :src="'/api/images/' + data.image"
+             :src="'http://localhost/App-vue01/php_api/image/' + data.image"
             width="70%"
             height="300"
             class="card-img-top"
@@ -23,14 +23,14 @@
           <div class="card-body text-center">
             <h5 class="card-title">{{ data.product_name }}</h5> <!-- ชื่อสินค้า -->
             <p class="card-text">{{ data.price }} บาท</p>       <!-- ราคาสินค้า -->
-            <button class="btn btn-primary">สั่งซื้อ</button>      <!-- ปุ่มสั่งซื้อ -->
+            <button class="btn btn-primary">สั่งซื้อ</button> &nbsp;
+            <button class="btn btn-primary">ดูรายละเอียด</button>      <!-- ปุ่มสั่งซื้อ -->
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 
 
 <script>
@@ -46,7 +46,7 @@ export default {
     // ฟังก์ชันดึงข้อมูลจาก API
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/products");
+        const response = await fetch("http://localhost/App-vue01/php_api/show_product.php");
         if (!response.ok) {
           throw new Error("ไม่สามารถดึงข้อมูลได้");
         }

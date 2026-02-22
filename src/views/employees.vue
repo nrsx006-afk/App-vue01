@@ -2,37 +2,35 @@
   <div class="container mt-4">
     <h2 class="mb-3">รายชื่อพนักงาน</h2>
     
-<div class="mb-3 text-end">
-  <a class="btn btn-primary" href="/add_employee" role="button">Add+</a>
-  </div>
-
     <!-- ตารางแสดงข้อมูลลูกค้า -->
     <table class="table table-bordered table-striped">
       <thead class="table-dark">
         <tr>
-          <th>ลำดับที่</th>
-           <th>รหัสพนักงาน</th>
+          <th>รหัสพนักงาน</th>
           <th>ชื่อพนักงาน</th>
           <th>แผนก</th>
           <th>เงินเดือน</th>
           <th>สถานะ</th>
+          <th>วันที่เริ่มงาน</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(employee,index)  in employees" :key="employee.emp_id">
-          <td>{{ index+1 }}</td>
-          <td>{{ employee.emp_id }}</td>
-          <td>{{ employee.full_name }}</td>
-          <td>{{ employee.department }}</td>
-          <td>{{ employee.salary }}</td>
-          
-          <td>
-            <span v-if="employee.active ==1">ปกติ</span>
-            <span v-else>ลาออก</span>
-          </td>
+        <tr v-for="employees in employeess" :key="employees.emp_id">
+          <td>{{ employees.emp_id }}</td>
+          <td>{{ employees.full_name }}</td>
+          <td>{{ employees.department }}</td>
+          <td>{{ employees.salary }}</td>
+          <td>{{ employees.active }}</td>
+          <td>{{ employees.created_at }}</td>
+
         </tr>
       </tbody>
     </table>
+
+    <div class="mb-3 text-end">
+    <a class="btn btn-primary" href="/add_employees" role="button">Add+</a>
+    </div>
+
 
     <!-- Loading -->
     <div v-if="loading" class="text-center">
@@ -50,20 +48,20 @@
 import { ref, onMounted } from "vue";
 
 export default {
-  name: "employeeList",
+  name: "EmployeesList",
   setup() {
-    const employees = ref([]);
+    const employeess = ref([]);
     const loading = ref(true);
     const error = ref(null);
 
     // ฟังก์ชันดึงข้อมูลจาก API
-    const fetchemployees = async () => {
+    const fetchEmployeess = async () => {
       try {
-        const response = await fetch("/api/employees");
+        const response = await fetch("http://localhost/App-vue01/php_api/employees.php");
         if (!response.ok) {
           throw new Error("ไม่สามารถดึงข้อมูลได้");
         }
-        employees.value = await response.json();
+        employeess.value = await response.json();
       } catch (err) {
         error.value = err.message;
       } finally {
@@ -72,11 +70,11 @@ export default {
     };
 
     onMounted(() => {
-      fetchemployees();
+      fetchEmployeess();
     });
 
     return {
-      employees,
+      employeess,
       loading,
       error
     };

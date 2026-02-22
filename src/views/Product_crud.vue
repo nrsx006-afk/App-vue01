@@ -11,6 +11,7 @@
         <tr>
           <th>ID</th>
           <th>ชื่อสินค้า</th>
+          <th>ประเภทสินค้า</th>
           <th>รายละเอียด</th>
           <th>ราคา</th>
           <th>จำนวน</th>
@@ -22,22 +23,23 @@
         <tr v-for="product in products" :key="product.product_id">
           <td>{{ product.product_id }}</td>
           <td>{{ product.product_name }}</td>
+          <td>{{ product.category_name }}</td>
           <td>{{ product.description }}</td>
           <td>{{ product.price }}</td>
           <td>{{ product.stock }}</td>
           <td>
             <img
               v-if="product.image"
-              :src="'/api/uploads/' + product.image"
+              :src="'http://localhost/App-vue01/php_api/uploads/' + product.image"
               width="100"
             />
           </td>
           <td>
             <button class="btn btn-warning btn-sm me-2" @click="openEditModal(product)">
-              แก้ไข
+             <i class="bi bi-1-square"></i> แก้ไข
             </button>
             <button class="btn btn-danger btn-sm" @click="deleteProduct(product.product_id)">
-              ลบ
+              <i class="bi bi-1-square"></i>ลบ
             </button>
           </td>
         </tr>
@@ -60,6 +62,16 @@
               <div class="mb-3">
                 <label class="form-label">ชื่อสินค้า</label>
                 <input v-model="editForm.product_name" type="text" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">ประเภทสินค้า</label>
+                <!-- Dropdown สำหรับเลือกประเภทสินค้า -->
+                <select v-model="editForm.category_id" class="form-select" required>
+                  <option value="" disabled>เลือกประเภทสินค้า</option>
+                  <option v-for="category in category" :key="category.category_id" :value="category.category_id">
+                    {{ category.category_name }}
+                  </option>
+                </select>
               </div>
               <div class="mb-3">
                 <label class="form-label">รายละเอียด</label>
@@ -87,7 +99,7 @@
   <div v-if="isEditMode && editForm.image">
     <p class="mt-2">รูปเดิม:</p>
     <img
-      :src="'/api/uploads/' + editForm.image"
+      :src="'http://localhost/App-vue01/php_api/uploads/' + editForm.image"
       width="100"
     />
   </div>
@@ -120,6 +132,7 @@ export default {
     const editForm = ref({
       product_id: null,
       product_name: "",
+      category_id: "",
       description: "",
       price: "",
       stock: "",
@@ -128,10 +141,12 @@ export default {
     const newImageFile = ref(null);
     let modalInstance = null;
 
+    const category = ref("");
+
     // โหลดข้อมูลสินค้า
     const fetchProducts = async () => {
       try {
-        const res = await fetch("/api/products/crud");
+        const res = await fetch("http://localhost/App-vue01/php_api/api_product.php");
         const data = await res.json();
         products.value = data.success ? data.data : [];
       } catch (err) {
@@ -147,6 +162,7 @@ const openAddModal = () => {
   editForm.value = {
     product_id: null,
     product_name: "",
+    category_id: "",
     description: "",
     price: "",
     stock: "",
@@ -186,10 +202,11 @@ const openAddModal = () => {
       formData.append("description", editForm.value.description);
       formData.append("price", editForm.value.price);
       formData.append("stock", editForm.value.stock);
+      formData.append("category_id", editForm.value.category_id); 
       if (newImageFile.value) formData.append("image", newImageFile.value);
 
       try {
-        const res = await fetch("/api/products/crud", {
+        const res = await fetch("http://localhost/App-vue01/php_api/api_product.php", {
           method: "POST",
           body: formData
         });
@@ -215,7 +232,7 @@ const openAddModal = () => {
       formData.append("product_id", id);
 
       try {
-        const res = await fetch("/api/products/crud", {
+        const res = await fetch("http://localhost/App-vue01/php_api/api_product.php", {
           method: "POST",
           body: formData
         });
@@ -239,6 +256,7 @@ const openAddModal = () => {
       error,
       editForm,
       isEditMode,
+      category,
       openAddModal,
       openEditModal,
       handleFileUpload,

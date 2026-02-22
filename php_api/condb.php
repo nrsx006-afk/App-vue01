@@ -8,7 +8,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $host = "localhost";
 $username = "root";
 $password = "";
-$dbname = "dbshop";
+$dbname = "db_shop";
 
 
 try {
@@ -16,5 +16,6 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
+    
 }
 ?>

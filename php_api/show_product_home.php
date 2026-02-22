@@ -1,9 +1,8 @@
 <?php
 include 'condb.php';
 
-
 try {
-    $stmt = $conn->query("SELECT * FROM type");
+    $stmt = $conn->query("SELECT * FROM products order by product_id lIMIT 4");
     $datas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($datas);
     

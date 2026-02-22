@@ -1,79 +1,144 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    name: "home",
+    component: HomeView,
   },
+  {
+    path: "/Customer",
+    name: "Customer",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Customer.vue"),
+  },
+  {
+    path: "/Contact",
+    name: "Comtact",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Contact.vue"),
+  },
+  {
+    path: "/type",
+    name: "tpye",
+    component: () => import(/* webpackChunkName: "type" */ "../views/Type.vue"),
+  },
+  {
+    path: "/employees",
+    name: "employees",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/employees.vue"),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/add_customer",
+    name: "add_customer",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/Add_customer.vue"),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/add_employees",
+    name: "add_employees",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/Add_employees.vue"),
+  },
+  {
+    path: "/product",
+    name: "product",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/Product.vue"),
+     meta: { requiresAuth: true }
+   
+  },
+  {
+    path: "/product_api",
+    name: "product_api",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/Product_api.vue"),
+     meta: { requiresAuth: true }
+  },
+  {
+    path: "/show_product",
+    name: "show_product",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/Show_product.vue"),
+  },
+  {
+    path: "/customer_crud",
+    name: "customer_crud",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/Customer_crud.vue"),
+  },
+  {
+    path: "/employees_crud",
+    name: "employees_crud",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/Employees_crud.vue"),
+  },
+  {
+    path: "/type_crud",
+    name: "type_crud",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/type_crud.vue"),
+  },
+  {
+    path: "/student_crud",
+    name: "student_crud",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/Student_crud.vue"),
+  },
+  {
+    path: "/product_crud",
+    name: "product_crud",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/Product_crud.vue"),
+     meta: { requiresAuth: true }
+  },
+  {
+    path: "/employee_crud_image",
+    name: "employee_crud_image",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/Employees_crud_image.vue"),
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/Login.vue"),
+  },
+  ,
+  {
+    path: "/productDetail",
+    name: "productDetail",
+    component: () =>
+      import(/* webpackChunkName: "type" */ "../views/ProductDetail.vue"),
+  },
+];
 
-  {
-    path: '/customer',
-    name: 'customer',
-    component: () => import('../views/Customer.vue')
-  },
-
-  {
-    path: '/contact',
-    name: 'contact',
-    component: () => import('../views/Contact.vue')
-  },
-  {
-    path: '/type',
-    name: 'type',
-    component: () => import('../views/Type.vue')
-  },
-  {
-    path: '/employee',
-    name: 'employee',
-    component: () => import('../views/employees.vue')
-  },
-  {
-    path: '/add_customer',
-    name: 'add_customer',
-    component: () => import('../views/Add_customer.vue')
-  },
-  {
-    path: '/add_employee',
-    name: 'add_employee',
-    component: () => import('../views/Add_employee.vue')
-  },
-  {
-    path: '/product',
-    name: 'product',
-    component: () => import('../views/Product.vue')
-  },
-  {
-    path: '/product_api',
-    name: 'product_api',
-    component: () => import('../views/Product_api.vue')
-  },
-  {
-    path: '/show_product',
-    name: 'show_product',
-    component: () => import('../views/Show_product.vue')
-  },
-  {
-    path: '/product_crud',
-    name: 'product_crud',
-    component: () => import('../views/Product_crud.vue')
-  },
-  {
-    path: '/employee_crud_image',
-    name: 'employee_crud_image',
-    component: () => import('../views/Employee_crud_image.vue')
-  },
-  {
-    path: '/student',
-    name: 'student',
-    component: () => import('../views/Student.vue')
-  }
-]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+});
+
+/* ✅ ROUTE GUARD */
+router.beforeEach((to, from, next) => {
+
+  const isLoggedIn = localStorage.getItem("adminLogin")
+
+  // ถ้าหน้านั้นต้อง login แต่ยังไม่ login
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    next('/login')
+  } 
+  // ถ้า login แล้วแต่พยายามเข้าหน้า login
+  else if (to.path === '/login' && isLoggedIn) {
+    next('/')   // หรือ dashboard
+  }
+  else {
+    next()
+  }
 })
 
-export default router
+export default router;

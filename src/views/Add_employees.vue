@@ -3,14 +3,15 @@
     <h2 class="text-center mb-3">เพิ่มข้อมูลพนักงาน</h2>
     <form @submit.prevent="addData">
       <div class="mb-2">
-        <input v-model="employee.full_name" class="form-control" placeholder="ชื่อ-นามสกุล" required />
+        <input v-model="employees.full_name" class="form-control" placeholder="ชื่อ" required />
       </div>
       <div class="mb-2">
-        <input v-model="employee.department" class="form-control" placeholder="แผนก" required />
+        <input v-model="employees.department" class="form-control" placeholder="แผนก" required />
       </div>
       <div class="mb-2">
-        <input type="number" v-model="employee.salary" class="form-control" placeholder="เงินเดือน" required />
+        <input type="number" v-model="employees.salary" class="form-control" placeholder="เงินเดือน" required />
       </div>
+
       <div class="text-center mt-4 ">
       <button type="submit" class="btn btn-primary mb-4">บันทึก</button> &nbsp;
       <button type="reset" class="btn btn-secondary mb-4">ยกเลิก</button>
@@ -28,7 +29,7 @@
 export default {
   data() {
     return {
-      employee: {
+      employees: {
         full_name: "",
         department: "",
         salary: "",
@@ -40,17 +41,17 @@ export default {
   methods: {
     async addData() {
       try {
-        const res = await fetch("/api/employees/add", {
+        const res = await fetch("http://localhost/app-vue01/php_api/add_employees.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(this.employee)
+          body: JSON.stringify(this.employees)
         });
         const data = await res.json();
         this.message = data.message;
 
         if (data.success) {
           // ✅ เคลียร์ข้อมูลใน textbox หลังบันทึกสำเร็จ
-          this.employee = { full_name: "", department: "", salary: "", active: "" };
+          this.employees = { full_name: "", department: "", salary: "", active: ""};
         }
 
       } catch (err) {
